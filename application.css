@@ -1,0 +1,51 @@
+.row{
+	margin-bottom: 1em;
+}
+
+.pic{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.pic-container{
+	display: inline-block;
+	position: relative;
+	width: 100%;
+}
+
+.testing:{
+	width: 30%;
+	display: block;
+	position: relative;
+}
+
+.pic-container:before{
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+h1{
+	margin-bottom: 1em;
+	display: inline-block;
+}
+
+.logo{
+	height: 6em;
+}
+
+.container{
+	padding-top: 1.5em;
+}
+
+.group-name{
+	font-weight: bold;
+	text-decoration: underline;
+	color: black;
+}
