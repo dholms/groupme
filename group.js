@@ -70,7 +70,7 @@ var displayResult = function(arr){
 	for(var i = 0; i < order.length; i++){
 		var person = order[i];
 		if(i%3 == 0){
-			html += "<div class='row people-row'>";
+			html += "<div class='row'>";
 		}
 		html += "<div class='col-md-4 col-sm-4 col-xs-12'><div class='row'>";
 		html += "<div class='col-md-6 col-sm-6 col-xs-6'><div class='pic-container'>";
@@ -79,7 +79,7 @@ var displayResult = function(arr){
 		} else{
 			html += "<img src='bw_logo.png' class='pic'/>";
 		}
-		html += "</div></div><div class='stats col-md-6 col-sm-6 col-xs-6'>";
+		html += "</div></div><div class='col-md-6 col-sm-6 col-xs-6'>";
 		html +=	"<span class='group-name'>" + people[person].name + "</span><br>";
 		html += "Average likes:" + people[person].averageLikes + "<br>";
 		html += "Highest likes:" + people[person].highestLikes + "<br>";

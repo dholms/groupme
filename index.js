@@ -11,22 +11,49 @@ $(document).ready(function(){
 	}
 });
 
-var displayGroups = function(response){
-	console.log(response);
+var olddisplayGroups = function(response){
 	var html = "";
 	for(group in groups){
-		html += "<div class='group row'><div class='col-md-2'><div class='pic-container'>";
+		html += "<div class='group row'><div class='col-md-2'><div class='pic-container'><a href='group.html?access_token=" + accessToken + "&group=" + groups[group].id+"' class='group-name'>";
 		if(groups[group].image_url){
 			html += "<img src='" + groups[group].image_url + "' class='pic'/>";
 		} else{
 			html += "<img src='bw_logo.png' class='pic'/>";
 		}
-		html += "</div></div><div class='col-md-4'><a href='group.html?access_token=" + accessToken + "&group=" + groups[group].id+"' class='group-name'>"
+		html += "</div></div><div class='col-md-4'>"
 		html += groups[group].name + "</a><br>";
 		if(groups[group].description)
 			html += "<em>"+groups[group].description+"</em><br>";
 		html += groups[group].members.length + " members";
 		html += "</div></div>";
+	}
+	$('.data').html(html);
+}
+
+var displayGroups = function(arr){
+	var html = "";
+	var i = 0;
+	for(group in groups){
+		if(i%3 == 0){
+			html += "<div class='row'>";
+		}
+		html += "<div class='col-md-4 col-sm-4 col-xs-12'><a href='group.html?access_token=" + accessToken + "&group=" + groups[group].id+"' class='group-name'><div class='row'>";
+		html += "<div class='col-md-6 col-sm-6 col-xs-6'><div class='pic-container'>";
+		if(groups[group].image_url){
+			html += "<img src='" + groups[group].image_url + "' class='pic'/>";
+		} else{
+			html += "<img src='bw_logo.png' class='pic'/>";
+		}
+		html += "</div></div><div class='col-md-6 col-sm-6 col-xs-6'>";
+		html += groups[group].name + "</a><br>";
+		if(groups[group].description)
+			html += "<em>"+groups[group].description+"</em><br>";
+		html += groups[group].members.length + " members";
+		html += "</div></div></div>";
+		if(i%3 == 2){
+			html += "</div>";
+		}
+		i++;
 	}
 	$('.data').html(html);
 }
