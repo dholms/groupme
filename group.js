@@ -91,6 +91,7 @@ var displayResult = function(arr){
 		}
 	}
 	$('.data').html(html);
+	$('.data').removeClass('loading')
 }
 
 var startAnalysis = function(){

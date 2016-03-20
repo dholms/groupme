@@ -60,3 +60,7 @@ h1{
 .data{
 	margin-top: 3em;
 }
+
+.loading{
+    text-align: center;
+}

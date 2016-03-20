@@ -11,25 +11,6 @@ $(document).ready(function(){
 	}
 });
 
-var olddisplayGroups = function(response){
-	var html = "";
-	for(group in groups){
-		html += "<div class='group row'><div class='col-md-2'><div class='pic-container'><a href='group.html?access_token=" + accessToken + "&group=" + groups[group].id+"' class='group-name'>";
-		if(groups[group].image_url){
-			html += "<img src='" + groups[group].image_url + "' class='pic'/>";
-		} else{
-			html += "<img src='bw_logo.png' class='pic'/>";
-		}
-		html += "</div></div><div class='col-md-4'>"
-		html += groups[group].name + "</a><br>";
-		if(groups[group].description)
-			html += "<em>"+groups[group].description+"</em><br>";
-		html += groups[group].members.length + " members";
-		html += "</div></div>";
-	}
-	$('.data').html(html);
-}
-
 var displayGroups = function(arr){
 	var html = "";
 	var i = 0;
@@ -56,6 +37,7 @@ var displayGroups = function(arr){
 		i++;
 	}
 	$('.data').html(html);
+	$('.data').removeClass('loading');
 }
 
 var populateGroups = function(){
