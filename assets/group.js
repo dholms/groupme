@@ -5,52 +5,18 @@ var messageURL;
 var userURL;
 var messages = [];
 var people = {};
-var groups = {};
 var groupInfo = {};
 var counter = 0;
 $(document).ready(function(){
-	// accessToken = getUrlParameter("access_token");
-	accessToken = "694d1600c7a20133e5ff02b4a5819c83";
+	accessToken = getUrlParameter("access_token");
+	groupURL = baseURL + "/groups/" + getUrlParameter("group");
+	messageURL = groupURL + "/messages";
 	if(accessToken){
-		populateGroups();
+		populateMessages("999999999999999999");
 	} else{
 		window.location.replace("https://oauth.groupme.com/oauth/authorize?client_id=mYijg0ZZvRrHmtH7pPaLMBf0LSIbYor6NOJa1Hk4ePlxt26i");
 	}
 });
-
-var displayGroups = function(response){
-	console.log(response);
-	var html = "";
-	for(group in groups){
-		html += "<div class='group row'><div class='col-md-2'><div class='pic-container'>";
-		if(groups[group].image_url){
-			html += "<img src='" + groups[group].image_url + "' class='pic'/>";
-		} else{
-			html += "<img src='bw_logo.png' class='pic'/>";
-		}
-		html += "</div></div><div class='col-md-4'><a href='people.html?accessToken=" + accessToken + "&group=" + groups[group].id+"' class='group-name'>"
-		html += groups[group].name + "</a><br>";
-		if(groups[group].description)
-			html += "<em>"+groups[group].description+"</em><br>";
-		html += groups[group].members.length + " members";
-		html += "</div></div>";
-	}
-	$('.data').html(html);
-	$('.group-name').on('click', loadGroup);
-}
-
-var loadGroup = function(e){
-	$('.data').html("");
-	for(group in groups){
-			if(groups[group].name === e.target.innerHTML){
-				groupURL = baseURL + "/groups/" + groups[group].id;
-				messageURL = groupURL + "/messages";
-				messages = [];
-				populateMessages("999999999999999999");
-				break;
-			}
-		}
-}
 
 var updateList = function(){
 	console.log('here');
@@ -93,21 +59,6 @@ var sortArr = function(token){
 	return arr;
 }
 
-var populateGroups = function(){
-	$.ajax({
-		url: baseURL+"/groups",
-		type: 'GET',
-		data: {token: accessToken, per_page:20},
-		success: function(response) {
-			groups = response.response;
-			displayGroups(response);
-		},
-		error: function(errors) {
-			console.log(errors);
-		}
-	});
-}
-
 var displayResult = function(arr){
 	var order;
 	if(arguments.length == 0){
@@ -116,30 +67,31 @@ var displayResult = function(arr){
 		order = arr;
 	}
 	var html = "";
-	html += '<div class="row"><a href="#" onclick="displayGroups()">Return To Groups</a></div>';
 	for(var i = 0; i < order.length; i++){
 		var person = order[i];
 		if(i%3 == 0){
-			html += "<div class='row people-row'>";
+			html += "<div class='row'>";
 		}
-		html += "<div class='col-md-2'><div class='pic-container'>";
+		html += "<div class='col-md-4 col-sm-4 col-xs-12'><div class='row'>";
+		html += "<div class='col-md-6 col-sm-6 col-xs-6'><div class='pic-container'>";
 		if(people[person].image_url){
 			html += "<img src='" + people[person].image_url + "' class='pic'/>";
 		} else{
-			html += "<img src='bw_logo.png' class='pic'/>";
+			html += "<img src='assets/bw_logo.png' class='pic'/>";
 		}
-		html += "</div></div><div class='col-md-2'><span class='group-name'>" + people[person].name + "</span><br>";
-		html += "Average likes: " + people[person].averageLikes + "<br>";
-		html += "Highest likes: " + people[person].highestLikes + "<br>";
-		html += "Total likes: " + people[person].totalLikes + "<br>";
-		html += "Total messages: " + people[person].totalMessages + "<br>";
-		html += "Unliked Percentage: " + people[person].unLikeRatio;
-		html += "</div>";
+		html += "</div></div><div class='col-md-6 col-sm-6 col-xs-6'>";
+		html +=	"<span class='group-name'>" + people[person].name + "</span><br>";
+		html += "Average likes:" + people[person].averageLikes + "<br>";
+		html += "Highest likes:" + people[person].highestLikes + "<br>";
+		html += "Total likes:" + people[person].totalLikes + "<br>";
+		html += "Total messages:" + people[person].totalMessages +"<br>";
+		html += "</div></div></div>";
 		if(i%3 == 2){
 			html += "</div>";
 		}
 	}
 	$('.data').html(html);
+	$('.data').removeClass('loading')
 }
 
 var startAnalysis = function(){
@@ -226,7 +178,7 @@ var populateMessages = function(before_id){
 	$.ajax({
 		url: messageURL,
 		type: 'GET',
-		data: {token: accessToken, limit: 100, before_id:before_id},
+		data: {token: accessToken, limit: 100, before_id: before_id},
 		success: function(response) {
 			counter++;
 			temp = response.response.messages

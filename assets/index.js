@@ -23,7 +23,7 @@ var displayGroups = function(arr){
 		if(groups[group].image_url){
 			html += "<img src='" + groups[group].image_url + "' class='pic'/>";
 		} else{
-			html += "<img src='bw_logo.png' class='pic'/>";
+			html += "<img src='assets/bw_logo.png' class='pic'/>";
 		}
 		html += "</div></div><div class='col-md-6 col-sm-6 col-xs-6'>";
 		html += groups[group].name + "</a><br>";
