@@ -85,6 +85,8 @@ var displayResult = function(arr){
 		html += "Highest likes:" + people[person].highestLikes + "<br>";
 		html += "Total likes:" + people[person].totalLikes + "<br>";
 		html += "Total messages:" + people[person].totalMessages +"<br>";
+		html += "No Likes:" + people[person].noLikes +"<br>";
+		html += "Unliked Percentage:" + people[person].unLikeRatio +"%<br>";
 		html += "</div></div></div>";
 		if(i%3 == 2){
 			html += "</div>";
